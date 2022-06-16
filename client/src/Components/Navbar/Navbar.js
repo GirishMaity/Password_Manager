@@ -30,6 +30,7 @@ function Navbar()
 
             <div className="navbar__left">
                 <h2> <Link to="/"> Password Manager </Link> </h2>
+               
             </div>
 
             <div className="navbar__right">
