@@ -8,9 +8,8 @@ import { loginUser } from "../../axios/instance";
 import { useSelector, useDispatch } from "react-redux";
 import { setAuth } from "../../redux/actions";
 
-function Login()
-{
-  const isAuthenticated = useSelector(state => state.isAuthenticated);
+function Login() {
+  const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const history = useHistory();
   const [userData, setUserData] = useState({
     email: "",
@@ -18,12 +17,10 @@ function Login()
   });
   const dispatch = useDispatch();
 
-  const handleChange = (e) =>
-  {
+  const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setUserData((prevData) =>
-    {
+    setUserData((prevData) => {
       return {
         ...prevData,
         [name]: value,
@@ -31,14 +28,11 @@ function Login()
     });
   };
 
-  const handleLogin = async () =>
-  {
-    try
-    {
+  const handleLogin = async () => {
+    try {
       const res = await loginUser(userData);
 
-      if (res.status === 400)
-      {
+      if (res.status === 400) {
         toast.error(res.data.error, {
           position: "top-right",
           autoClose: 5000,
@@ -48,19 +42,16 @@ function Login()
           draggable: true,
           progress: undefined,
         });
-      } else if (res.status === 200)
-      {
+      } else if (res.status === 200) {
         dispatch(setAuth(true));
         history.push("/");
       }
-    } catch (error)
-    {
+    } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() =>
-  {
+  useEffect(() => {
     isAuthenticated && history.replace("/");
   }, [isAuthenticated, history]);
 
@@ -118,21 +109,11 @@ function Login()
 
           <div className="login__content">
             <h1> Login </h1>
-            <h4> Get your password secured with us for free. </h4>
 
             <p>
               Did not have any Account?
               <Link to="/signup"> Signup </Link>
             </p>
-
-            <a
-              className="attr"
-              href="https://www.freepik.com/vectors/star"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Star vector created by vectorpouch - www.freepik.com
-            </a>
           </div>
         </div>
       </div>
