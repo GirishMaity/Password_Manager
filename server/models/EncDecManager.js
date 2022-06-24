@@ -1,11 +1,9 @@
 const crypto = require("crypto");
 
 const encrypt = (userPass) => {
-  // DECLARING AND IV (basically an identifier for decryption)
   const iv = new Buffer.from(crypto.randomBytes(16));
   var ivstring = iv.toString("hex").slice(0, 16);
 
-  // CREATING A CIPHER (actual encryption)
   const cipher = crypto.createCipheriv(
     "aes-256-cbc",
     Buffer.from(process.env.CRYPTO_SECRET_KEY),
