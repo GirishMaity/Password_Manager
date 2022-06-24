@@ -151,7 +151,6 @@ function Signup() {
 
           <div className="signup__content">
             <h1> SignUp </h1>
-            <h4> Get your password secured with us for free. </h4>
 
             <p>
               {" "}

@@ -116,7 +116,7 @@ function Passwords() {
               <label> Email </label>
               <input
                 type="email"
-                placeholder="E.g. girish@gmail.com"
+                placeholder="E.g. dev@gmail.com"
                 value={platEmail}
                 onChange={(e) => setPlatEmail(e.target.value)}
                 required
@@ -134,7 +134,10 @@ function Passwords() {
               />
             </div>
 
-            <button onClick={addNewPassword}> Add </button>
+            <button onClick={addNewPassword}>
+              {" "}
+              <i class="fa fa-plus" aria-hidden="true"></i> Add{" "}
+            </button>
           </form>
         </Modal>
       </div>
