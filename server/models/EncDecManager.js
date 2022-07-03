@@ -1,11 +1,11 @@
 const crypto = require("crypto");
 
-const encrypt = (userPass) => {
+const encrypt = (userPass, algo) => {
   const iv = new Buffer.from(crypto.randomBytes(16));
   var ivstring = iv.toString("hex").slice(0, 16);
 
   const cipher = crypto.createCipheriv(
-    "aes-256-cbc",
+    algo,
     Buffer.from(process.env.CRYPTO_SECRET_KEY),
     ivstring
   );
@@ -19,9 +19,9 @@ const encrypt = (userPass) => {
   };
 };
 
-const decrypt = (encrypted, ivstring) => {
+const decrypt = (encrypted, ivstring, algo) => {
   const decipher = crypto.createDecipheriv(
-    "aes-256-cbc",
+    algo,
     Buffer.from(process.env.CRYPTO_SECRET_KEY),
     ivstring
   );

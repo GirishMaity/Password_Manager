@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { encrypt, decrypt } = require("./EncDecManager");
 
 const schema = new mongoose.Schema({
   name: {
@@ -10,6 +9,10 @@ const schema = new mongoose.Schema({
   },
 
   email: {
+    type: String,
+    required: true,
+  },
+  algo: {
     type: String,
     required: true,
   },

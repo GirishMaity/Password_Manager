@@ -6,9 +6,9 @@ const authenticate = require("../middlewares/authenticate");
 const { encrypt, decrypt } = require("../models/EncDecManager");
 
 router.post("/register", async (req, res) => {
-  const { name, email, password, cpassword } = req.body;
+  const { name, email, algo, password, cpassword } = req.body;
 
-  if (!name || !email || !password || !cpassword) {
+  if (!name || !email || !algo || !password || !cpassword) {
     return res.status(400).json({ error: "Invalid Credentials" });
   } else {
     if (password === cpassword) {
@@ -19,7 +19,7 @@ router.post("/register", async (req, res) => {
           return res.status(400).json({ error: "Email already exists." });
         }
 
-        const newUser = new User({ name, email, password, cpassword });
+        const newUser = new User({ name, email, algo, password, cpassword });
 
         await newUser.save();
 
@@ -84,7 +84,9 @@ router.post("/addnewpassword", authenticate, async (req, res) => {
   try {
     const rootUser = req.rootUser;
 
-    const { iv, encryptedPassword } = encrypt(userPass);
+    const algo = rootUser.algo;
+
+    const { iv, encryptedPassword } = encrypt(userPass, algo);
 
     const isSaved = await rootUser.addNewPassword(
       encryptedPassword,
@@ -139,10 +141,14 @@ router.get("/logout", (req, res) => {
   res.status(200).send("Logout");
 });
 
-router.post("/decrypt", (req, res) => {
+router.post("/decrypt", authenticate, (req, res) => {
   const { iv, encryptedPassword } = req.body;
 
-  return res.status(200).send(decrypt(encryptedPassword, iv));
+  const rootUser = req.rootUser;
+
+  const algo = rootUser.algo;
+
+  return res.status(200).send(decrypt(encryptedPassword, iv, algo));
 });
 
 module.exports = router;
