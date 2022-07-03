@@ -1,6 +1,6 @@
 .signup {
   width: 100%;
-  height: 90vh;
+  height: 110vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,12 +52,21 @@
   padding: 1rem 0;
 }
 
-.signup__left p, .signup__left p a {
-  color: #FFF;
+.signup__left p,
+.signup__left p a {
+  color: #fff;
   font-size: 1rem;
 }
 
 .inputs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+  color: var(--primary-bg);
+}
+
+.custom-select {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -74,7 +83,18 @@
   font-size: 1rem;
 }
 
+.custom-select select {
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+}
+
 .inputs label {
+  font-size: 0.8rem;
+}
+
+.custom-select label {
   font-size: 0.8rem;
 }
 
@@ -123,13 +143,17 @@
     height: 100%;
     object-fit: cover;
   }
-  
+
   .signup__content {
     z-index: 1;
     color: #eeeeee;
   }
 
   .inputs label {
+    color: #eeeeee;
+  }
+
+  .custom-select label {
     color: #eeeeee;
   }
 
@@ -161,6 +185,10 @@
   }
 
   .inputs {
+    width: 90%;
+  }
+
+  .custom-select {
     width: 90%;
   }
 }
