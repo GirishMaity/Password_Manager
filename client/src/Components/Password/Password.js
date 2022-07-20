@@ -1,117 +1,151 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "./Password.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { decryptThePass, deleteAPassword } from "../../axios/instance";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  checkBreach,
+  decryptThePass,
+  deleteAPassword,
+} from "../../axios/instance";
 import { delPass } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 
-function Password({ id, name, password, email, iv })
-{
-    const [show, setShow] = useState(false);
-    const [decPassword, setDecPassword] = useState("");
+function Password({ id, name, password, email, iv }) {
+  const [show, setShow] = useState(false);
+  const [decPassword, setDecPassword] = useState("");
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const deletePassword = async () =>
-    {
-        try
-        {
-            const res = await deleteAPassword({ id });
+  const deletePassword = async () => {
+    try {
+      const res = await deleteAPassword({ id });
 
-            if (res.status === 400)
-            {
-                toast.error(res.data.error, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-            }
-            else if (res.status === 200)
-            {
-                dispatch(delPass(id));
-                toast.success(res.data.message, {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-            }
-        }
-        catch (err)
-        {
-            console.log(err)
-        }
-
+      if (res.status === 400) {
+        toast.error(res.data.error, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else if (res.status === 200) {
+        dispatch(delPass(id));
+        toast.success(res.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    const decryptPassword = async () =>
-    {
-        try
-        {
-            if (!show)
-            {
-                const res = await decryptThePass({
-                    iv: iv,
-                    encryptedPassword: password,
-                });
+  const decryptPassword = async () => {
+    try {
+      if (!show) {
+        const res = await decryptThePass({
+          iv: iv,
+          encryptedPassword: password,
+        });
 
-                if (res.status === 200)
-                {
-                    setDecPassword(res.data);
-                    setShow(!show);
-                }
-            }
-            else
-            {
-                setShow(!show);
-            }
-
+        if (res.status === 200) {
+          setDecPassword(res.data);
+          setShow(!show);
         }
-        catch (error)
-        {
-            console.log(error);
-        }
+      } else {
+        setShow(!show);
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    return (
-        <div className="password">
-            <ToastContainer />
-            <div className="media">
+  const checkBreachPassword = async () => {
+    try {
+      const res = await checkBreach({
+        iv: iv,
+        encryptedPassword: password,
+      });
 
-                <i className={`fab fa-${ name.toLowerCase() }`}></i>
-                <h3 className="password__name"> {name} </h3>
+      if (res.status === 200) {
+        toast.error(res.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else if (res.status === 201) {
+        toast.success(res.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-                {<FontAwesomeIcon className="delete__btn1" onClick={deletePassword} icon={faTrash} />}
+  return (
+    <div className="password">
+      <ToastContainer />
+      <div className="media">
+        <i className={`fab fa-${name.toLowerCase()}`}></i>
+        <h3 className="password__name"> {name} </h3>
 
-            </div>
+        {
+          <FontAwesomeIcon
+            className="delete__btn1"
+            onClick={deletePassword}
+            icon={faTrash}
+          />
+        }
+      </div>
 
-            <div className="email">
-                <p> {email} </p>
-            </div>
+      <div className="email">
+        <p> {email} </p>
+      </div>
 
-            <div className="user-password">
+      <div className="user-password">
+        <input
+          type={show ? "text" : "password"}
+          value={decPassword}
+          disabled={true}
+        />
 
-                <input type={show ? "text" : "password"} value={decPassword} disabled={true} />
+        <FontAwesomeIcon icon={faEyeSlash} onClick={decryptPassword} />
+      </div>
 
-                <FontAwesomeIcon icon={faEyeSlash} onClick={decryptPassword} />
-
-            </div>
-
-            {<FontAwesomeIcon className="delete__btn2" onClick={deletePassword} icon={faTrash} />}
-
-        </div>
-    )
+      {
+        <FontAwesomeIcon
+          className="delete__btn2"
+          onClick={deletePassword}
+          icon={faTrash}
+        />
+      }
+      <button className="check-btn" onClick={checkBreachPassword}>
+        {" "}
+        <i class="fa fa-search" aria-hidden="true"></i> Check for breach{" "}
+      </button>
+    </div>
+  );
 }
 
 export default Password;

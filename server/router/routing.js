@@ -192,11 +192,13 @@ router.post("/breach", authenticate, (req, resp) => {
 
     let found = res.find((h) => h.hash === hashedPassword);
     if (found) {
-      return resp
-        .status(200)
-        .send(`Found ${found.count} matches! Password vulnerable!`);
+      return resp.status(200).json({
+        message: `Found ${found.count} matches! Password vulnerable!`,
+      });
     } else {
-      return resp.status(200).send("No matches found!");
+      return resp.status(201).json({
+        message: "No matches found!",
+      });
     }
   }
 });
