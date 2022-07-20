@@ -4,6 +4,9 @@ const User = require("../models/schema");
 const bcrypt = require("bcrypt");
 const authenticate = require("../middlewares/authenticate");
 const { encrypt, decrypt } = require("../models/EncDecManager");
+const hibp = require("haveibeenpwned")();
+const https = require("https");
+const crypto = require("crypto");
 
 router.post("/register", async (req, res) => {
   const { name, email, algo, password, cpassword } = req.body;
@@ -149,6 +152,53 @@ router.post("/decrypt", authenticate, (req, res) => {
   const algo = rootUser.algo;
 
   return res.status(200).send(decrypt(encryptedPassword, iv, algo));
+});
+
+router.post("/breach", authenticate, (req, resp) => {
+  const { iv, encryptedPassword } = req.body;
+  const rootUser = req.rootUser;
+  const algo = rootUser.algo;
+
+  const breachPassword = decrypt(encryptedPassword, iv, algo);
+
+  let hashedPassword = crypto
+    .createHash("sha1")
+    .update(breachPassword)
+    .digest("hex")
+    .toUpperCase();
+
+  let prefix = hashedPassword.slice(0, 5);
+  let apiCall = `https://api.pwnedpasswords.com/range/${prefix}`;
+
+  let hashes = "";
+  https
+    .get(apiCall, function (res) {
+      res.setEncoding("utf8");
+      res.on("data", (chunk) => (hashes += chunk));
+      res.on("end", onEnd);
+    })
+    .on("error", function (err) {
+      console.error(`Error: ${err}`);
+    });
+
+  function onEnd() {
+    let res = hashes.split("\r\n").map((h) => {
+      let sp = h.split(":");
+      return {
+        hash: prefix + sp[0],
+        count: parseInt(sp[1]),
+      };
+    });
+
+    let found = res.find((h) => h.hash === hashedPassword);
+    if (found) {
+      return resp
+        .status(200)
+        .send(`Found ${found.count} matches! Password vulnerable!`);
+    } else {
+      return resp.status(200).send("No matches found!");
+    }
+  }
 });
 
 module.exports = router;
