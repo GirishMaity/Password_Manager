@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
           return res.status(400).json({ error: "Email already exists." });
         }
 
-        const newUser = new User({ name, email, algo, password, cpassword });
+        const newUser = new User({ name, email, algo, password });
 
         await newUser.save();
 
