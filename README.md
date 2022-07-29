@@ -46,7 +46,7 @@ Used to store and manage online credentials and stores password in encrypted for
 
 ### Client-side usage(PORT: 3000)
 ```
-$ cd frontend   // go to client folder
+$ cd client     // go to client folder
 $ npm i         // npm install packages
 $ npm start     // run it locally
 
@@ -54,18 +54,19 @@ $ npm start     // run it locally
 $ npm run build 
 ```
 
-### Server-side usage(PORT: 5000)
-#### Prepare .env file
+### Server-side usage(PORT: 8000)
+#### Prepare config.env file
  You need to add Port number for backend, MongoDB atlas URI and create a JWT secret
 ```
-PORT = 5000
+PORT = 8000
 MONGO_URI = <your mongoDB atlas URI>
-JWT_SECRET = <your secret key>
+SECRET_KEY = <your secret key>
+CRYPTO_SECRET_KEY = <32 bit string>
 ```
 #### Start
 ```
+$ cd server    // go to backend folder
 $ npm i        // npm install packages
-$ cd backend   // go to backend folder
 $ npm start    // run it locally
 ```
 
