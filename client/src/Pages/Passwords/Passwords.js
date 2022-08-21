@@ -94,8 +94,14 @@ function Passwords() {
       </h1>
 
       <div className="modal">
-        <button className="modalButton" onClick={() => setOpen(true)}>
+        {/* <button className="modalButton" onClick={() => setOpen(true)}>
           Add New Password
+        </button> */}
+        <button class="icon-btn add-btn" onClick={() => setOpen(true)}>
+          <div class="add-icon"></div>
+          <div class="btn-txt">
+            <b>Add New Password</b>
+          </div>
         </button>
 
         <Modal open={open} onClose={() => setOpen(false)}>
@@ -134,9 +140,24 @@ function Passwords() {
               />
             </div>
 
-            <button onClick={addNewPassword}>
+            {/* <button onClick={addNewPassword}>
               {" "}
               <i class="fa fa-plus" aria-hidden="true"></i> Add{" "}
+            </button> */}
+            <button class="cssbuttons-io-button" onClick={addNewPassword}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+              >
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path
+                  fill="currentColor"
+                  d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"
+                ></path>
+              </svg>
+              <span>Add</span>
             </button>
           </form>
         </Modal>
