@@ -82,10 +82,6 @@ function Passwords() {
     }
   };
 
-  useEffect(() => {
-    !isAuthenticated && history.replace("/signin");
-  }, [isAuthenticated, history]);
-
   return (
     <div className="passwords">
       <ToastContainer />
