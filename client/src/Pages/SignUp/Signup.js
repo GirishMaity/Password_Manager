@@ -15,7 +15,6 @@ function Signup() {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
-    algo: "aes-256-cbc",
     password: "",
     cpassword: "",
   });
@@ -51,7 +50,6 @@ function Signup() {
         setUserData({
           name: "",
           email: "",
-          algo: "",
           password: "",
           cpassword: "",
         });
@@ -107,15 +105,6 @@ function Signup() {
               value={userData.email}
               required
             />
-          </div>
-
-          <div className="custom-select">
-            <label> Encryption Algorithm </label>
-            <select onChange={handleChange} value={userData.algo}>
-              <option value="aes-256-cbc">aes-256-cbc</option>
-              <option value="aes-256-cbc">aes-256-cbc</option>
-              <option value="aes-256-cbc">aes-256-cbc</option>
-            </select>
           </div>
 
           <div className="inputs">

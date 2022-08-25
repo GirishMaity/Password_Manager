@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import Password from "../../Components/Password/Password";
 import "./Passwords.css";
