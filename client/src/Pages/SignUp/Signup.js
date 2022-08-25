@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Signup.css";
 import { Link, useHistory } from "react-router-dom";
-import img from "../../assets/images/signup.jpg";
+//import img from "../../assets/images/signup.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signupUser } from "../../axios/instance";
@@ -158,7 +158,7 @@ function Signup() {
         </div>
 
         <div className="signup__right">
-          <img src={img} alt="login.jpg" />
+          
 
           <div className="signup__content">
             <h1> SignUp </h1>

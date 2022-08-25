@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Login.css";
 import { Link, useHistory } from "react-router-dom";
-import img from "../../assets/images/login.jpg";
+//import img from "../../assets/images/login.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginUser } from "../../axios/instance";
@@ -98,20 +98,20 @@ function Login() {
           </div>
 
           <p>
-            Did not have any account? <Link to="/signup">Signup</Link>
+            New user? <Link to="/signup">Signup</Link>
           </p>
 
           <button onClick={handleLogin}> Login </button>
         </div>
 
         <div className="login_right">
-          <img src={img} alt="login.jpg" />
+        
 
           <div className="login__content">
             <h1> Login </h1>
 
             <p>
-              Did not have any Account?
+              New User?
               <Link to="/signup"> Signup </Link>
             </p>
           </div>
