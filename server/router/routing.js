@@ -9,9 +9,9 @@ const https = require("https");
 const crypto = require("crypto");
 
 router.post("/register", async (req, res) => {
-  const { name, email, algo, password, cpassword } = req.body;
+  const { name, email, password, cpassword } = req.body;
 
-  if (!name || !email || !algo || !password || !cpassword) {
+  if (!name || !email || !password || !cpassword) {
     return res.status(400).json({ error: "Invalid Credentials" });
   } else {
     if (password === cpassword) {
@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
           return res.status(400).json({ error: "Email already exists." });
         }
 
-        const newUser = new User({ name, email, algo, password });
+        const newUser = new User({ name, email, password });
 
         await newUser.save();
 
@@ -87,9 +87,9 @@ router.post("/addnewpassword", authenticate, async (req, res) => {
   try {
     const rootUser = req.rootUser;
 
-    const algo = rootUser.algo;
+    //const algo = rootUser.algo;
 
-    const { iv, encryptedPassword } = encrypt(userPass, algo);
+    const { iv, encryptedPassword } = encrypt(userPass);
 
     const isSaved = await rootUser.addNewPassword(
       encryptedPassword,
@@ -149,17 +149,17 @@ router.post("/decrypt", authenticate, (req, res) => {
 
   const rootUser = req.rootUser;
 
-  const algo = rootUser.algo;
+  //const algo = rootUser.algo;
 
-  return res.status(200).send(decrypt(encryptedPassword, iv, algo));
+  return res.status(200).send(decrypt(encryptedPassword, iv));
 });
 
 router.post("/breach", authenticate, (req, resp) => {
   const { iv, encryptedPassword } = req.body;
   const rootUser = req.rootUser;
-  const algo = rootUser.algo;
+  //const algo = rootUser.algo;
 
-  const breachPassword = decrypt(encryptedPassword, iv, algo);
+  const breachPassword = decrypt(encryptedPassword, iv);
 
   let hashedPassword = crypto
     .createHash("sha1")

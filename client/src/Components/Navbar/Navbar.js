@@ -1,10 +1,6 @@
 import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faArrowLeft,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { useSelector } from "react-redux";

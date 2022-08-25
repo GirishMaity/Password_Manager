@@ -12,10 +12,6 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  algo: {
-    type: String,
-    required: true,
-  },
   password: {
     type: String,
     required: true,
