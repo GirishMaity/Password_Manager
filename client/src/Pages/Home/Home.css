@@ -1,51 +1,64 @@
 .home {
-    width: 100%;
-    height: 89vh;
-    padding: 2rem;
-    background-color: #ffffff;
-    display: flex;
-    background-image: url("./Background.png");
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
+  width: 100%;
+  height: 89vh;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
 }
 
+#light .home {
+  background-color: #ffffff;
+}
+
+#dark .home {
+  background-color: #121212;
+}
 
 .name {
-    color: inherit;
-	text-decoration: none;
-	box-shadow: inset 0 -.1em 0 0 #ddd;
-	transition-property: box-shadow, color;
-	transition-duration: .2s, .4s;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: inset 0 -0.1em 0 0 #ddd;
+  transition-property: box-shadow, color;
+  transition-duration: 0.2s, 0.4s;
 }
 
 .name:hover {
-	color: #888;
-	box-shadow: inset 0 -.25em 0 0 #ddd;
+  color: #888;
+  box-shadow: inset 0 -0.25em 0 0 #ddd;
 }
 
 .home__left p {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .home__left a {
-    display: block;
-    margin-top: 2rem;
-    color: rgb(0, 0, 0);
-    padding: 0.5rem;
-    transition: all 0.3s ease;
-    background: #c7c7c7;
-    box-shadow: 0 23px 25px -9px #658c80;
-    position: relative;
-    text-decoration: none;
+  display: block;
+  margin-top: 2rem;
+
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  background: #c7c7c7;
+  box-shadow: 0 23px 25px -9px #658c80;
+  position: relative;
+  text-decoration: none;
+}
+
+#light .home__left {
+  color: rgb(0, 0, 0);
+}
+
+#dark .home__left {
+  color: rgb(255, 255, 255);
 }
 
 .home__left a:hover {
-    color: rgb(59, 39, 160);
+  color: rgb(59, 39, 160);
 }
 
 .home__right {
-    display: none;
+  display: none;
 }

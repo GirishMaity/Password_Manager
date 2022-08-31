@@ -1,14 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { useSelector } from "react-redux";
+import { ThemeContext } from "../../App";
 
 function Navbar() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const menu = useRef();
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const handleMenu = () => {
     setIsOpen(!isOpen);
@@ -42,6 +44,14 @@ function Navbar() {
                 <li>
                   <Link to="/logout">Logout</Link>
                 </li>
+                {/* <label class="switch">
+                  <input
+                    type="checkbox"
+                    onChange={toggleTheme}
+                    defaultChecked={theme === "dark"}
+                  />
+                  <span class="slider"></span>
+                </label> */}
               </>
             ) : (
               <>
@@ -51,6 +61,14 @@ function Navbar() {
                 <li>
                   <Link to="/signup">SignUp</Link>
                 </li>
+                {/* <label class="switch">
+                  <input
+                    type="checkbox"
+                    onChange={toggleTheme}
+                    defaultChecked={theme === "dark"}
+                  />
+                  <span class="slider"></span>
+                </label> */}
               </>
             )}
           </ul>
