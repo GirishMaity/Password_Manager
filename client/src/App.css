@@ -29,6 +29,7 @@
   display: inline-block;
   width: 3em;
   height: 1.72em;
+  right: -95%;
 }
 
 /* Hide default HTML checkbox */
