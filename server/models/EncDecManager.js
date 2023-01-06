@@ -1,12 +1,12 @@
 const crypto = require("crypto");
 
 const encrypt = (userPass) => {
-  const iv = new Buffer.from(crypto.randomBytes(16));
-  var ivstring = iv.toString("hex").slice(0, 16);
+  const iv = crypto.randomBytes(16);
+  const ivstring = iv.toString("hex").slice(0, 16);
 
   const cipher = crypto.createCipheriv(
-    process.env.ENC_ALGORITHM,
-    Buffer.from(process.env.CRYPTO_SECRET_KEY),
+    `${process.env.ENC_ALGORITHM}`,
+    Buffer.from(`${process.env.CRYPTO_SECRET_KEY}`),
     ivstring
   );
 
@@ -14,15 +14,15 @@ const encrypt = (userPass) => {
   const bufferEncryptedPassword = cipher.final("base64");
 
   return {
-    iv: ivstring,
     encryptedPassword: bufferEncryptedPassword,
+    iv: ivstring,
   };
 };
 
 const decrypt = (encrypted, ivstring) => {
   const decipher = crypto.createDecipheriv(
-    process.env.ENC_ALGORITHM,
-    Buffer.from(process.env.CRYPTO_SECRET_KEY),
+    `${process.env.ENC_ALGORITHM}`,
+    Buffer.from(`${process.env.CRYPTO_SECRET_KEY}`),
     ivstring
   );
 
