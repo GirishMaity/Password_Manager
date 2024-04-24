@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./Signup.css";
 import { Link, useHistory } from "react-router-dom";
-//import img from "../../assets/images/signup.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signupUser } from "../../axios/instance";
 import { useSelector } from "react-redux";
 import ReactLoading from "react-loading";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function Signup() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showCPassword, setShowCPassword] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -28,6 +31,14 @@ function Signup() {
         [name]: value,
       };
     });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShow) => !prevShow);
+  };
+
+  const toggleCPasswordVisibility = () => {
+    setShowCPassword((prevShow) => !prevShow);
   };
 
   const handleRegister = async () => {
@@ -109,30 +120,46 @@ function Signup() {
 
           <div className="inputs">
             <label> Password </label>
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              required
-              onChange={handleChange}
-              value={userData.password}
-            />
+            <div className="password-input">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                name="password"
+                required
+                onChange={handleChange}
+                value={userData.password}
+              />
+              <span
+                className={`eye ${showPassword ? "visible" : ""}`}
+                onClick={togglePasswordVisibility}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+              </span>
+            </div>
           </div>
 
           <div className="inputs">
             <label> Confirm Password </label>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              name="cpassword"
-              onChange={handleChange}
-              required
-              value={userData.cpassword}
-            />
+            <div className="password-input">
+              <input
+                type={showCPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                name="cpassword"
+                onChange={handleChange}
+                required
+                value={userData.cpassword}
+              />
+              <span
+                className={`cpeye ${showCPassword ? "visible" : ""}`}
+                onClick={toggleCPasswordVisibility}
+              >
+                <FontAwesomeIcon icon={showCPassword ? faEye : faEyeSlash} />
+              </span>
+            </div>
           </div>
 
           <p>
-            Alredy have an account? <Link to="/signin">Login</Link>
+            Already have an account? <Link to="/signin">Login</Link>
           </p>
 
           {isLoading && (
@@ -147,14 +174,11 @@ function Signup() {
         </div>
 
         <div className="signup__right">
-          
-
           <div className="signup__content">
             <h1> SignUp </h1>
 
             <p>
-              {" "}
-              Already have an account ?<Link to="/signin"> Login </Link>{" "}
+              Already have an account? <Link to="/signin">Login</Link>{" "}
             </p>
           </div>
         </div>

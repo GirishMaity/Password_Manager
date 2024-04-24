@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { loginUser } from "../../axios/instance";
 import { useSelector, useDispatch } from "react-redux";
 import { setAuth } from "../../redux/actions";
+import image1 from "../../assets/password.jpg"
 
 function Login() {
   const isAuthenticated = useSelector((state) => state.isAuthenticated);
@@ -72,6 +73,9 @@ function Login() {
 
       <div className="login__wrapper">
         <div className="login_left">
+        <div className="login__content">
+            <h1> Login </h1>
+            </div>
           <div className="inputs">
             <label> Email </label>
             <input
@@ -108,12 +112,7 @@ function Login() {
         
 
           <div className="login__content">
-            <h1> Login </h1>
-
-            <p>
-              New User?
-              <Link to="/signup"> Signup </Link>
-            </p>
+            <img src={image1}alt="" />
           </div>
         </div>
       </div>
