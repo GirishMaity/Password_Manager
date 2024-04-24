@@ -19,5 +19,3 @@ export const saveNewPassword = (data) => instance.post("/addnewpassword", data);
 export const deleteAPassword = (id) => instance.post("/deletepassword", id);
 export const decryptThePass = (data) => instance.post("/decrypt", data);
 export const checkBreach = (data) => instance.post("/breach", data);
-
-// hidsadas
