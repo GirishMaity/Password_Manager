@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const url = "https://pm-backend.onrender.com";
-const url = "http://localhost:8000";
+const url = "https://pm-backend.onrender.com";
+// const url = "http://localhost:8000";
 const instance = axios.create({
   baseURL: url,
   headers: {
