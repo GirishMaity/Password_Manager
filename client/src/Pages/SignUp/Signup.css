@@ -114,20 +114,26 @@
 }
 .password-input{
   width: 100%;
+  position: relative;
+}
+.password-input input{
+  position: relative;
 }
 .password-input .eye{
   position: absolute;
-  top: 328px;
-  right: 55px;
   cursor: pointer;
   font-size: 25px;
+  right: 1rem;
+  transform:translateY(-50%);
+  top:50%;
 }
 .password-input .cpeye{
   position: absolute;
-  top: 428px;
-  right: 55px;
   cursor: pointer;
   font-size: 25px;
+  right: 1rem;
+  transform:translateY(-50%);
+  top:50%;
 }
 
 @media only screen and (min-width: 900px) {
